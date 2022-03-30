@@ -1,20 +1,22 @@
+import {HeadersDefaults} from 'axios';
+
 export interface Config {
 	readonly endpoint: string;
 	readonly token: string;
 }
 
 export type Method = 'publish'
-	| 'broadcast'
-	| 'subscribe'
-	| 'unsubscribe'
-	| 'disconnect'
-	| 'presence'
-	| 'presence_stats'
-	| 'history'
-	| 'history_remove'
-	| 'channels'
-	| 'refresh'
-	| 'info';
+                     | 'broadcast'
+                     | 'subscribe'
+                     | 'unsubscribe'
+                     | 'disconnect'
+                     | 'presence'
+                     | 'presence_stats'
+                     | 'history'
+                     | 'history_remove'
+                     | 'channels'
+                     | 'refresh'
+                     | 'info';
 
 export type Payload<T = {}> = T;
 
@@ -80,4 +82,8 @@ export interface Metrics {
 export interface ErrorResponse {
 	readonly code: number;
 	readonly message: string;
+}
+
+export type CentrifugoHeaders = HeadersDefaults & {
+	authorization: string;
 }

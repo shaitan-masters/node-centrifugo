@@ -1,7 +1,7 @@
 {
 	"name"           : "@shaitan-masters/centrifugo",
-	"version"        : "0.0.1",
-	"description"    : "CENTRIFUGE admin driver",
+	"version"        : "0.1.0",
+	"description"    : "Centrifuge admin driver",
 	"authors"        : [
 		{
 			"name" : "Alexander Gropynov | CREW Shaitan Masters",
@@ -10,7 +10,7 @@
 	],
 	"repository"     : {
 		"type": "git",
-		"url" : "git+https://github.com/shaitan-masters/driver-centrifuge-admin.git"
+		"url" : "git+https://github.com/shaitan-masters/node-centrifugo.git"
 	},
 	"keywords"       : [
 		"sdk",
@@ -21,22 +21,25 @@
 		"wrapper",
 		"v3"
 	],
-	"license"        : "ISC",
 	"bugs"           : {
-		"url": "https://github.com/shaitan-masters/driver-centrifuge-admin/issues"
+		"url": "https://github.com/shaitan-masters/node-centrifugo/issues"
 	},
-	"homepage"       : "https://github.com/shaitan-masters/driver-centrifuge-admin#readme",
+	"homepage"       : "https://github.com/shaitan-masters/node-centrifugo#readme",
 	"scripts"        : {
-		"build": "rimraf ./dist && tsc"
+		"clean"         : "rimraf ./dist",
+		"compile"       : "tsc",
+		"build"         : "npm run clean && npm run compile",
+		"prepublishOnly": "npm run build"
 	},
+	"license"        : "MIT",
 	"main"           : "./dist/index.js",
 	"types"          : "./dist/index.d.ts",
 	"dependencies"   : {
-		"axios"         : "^0.21.1"
+		"axios": "~0.26.1"
 	},
 	"devDependencies": {
-		"@types/node": "^16.7.10",
-		"typescript" : "^4.4.2",
-		"rimraf"     : "^3.0.2"
+		"@types/node": "~16.11.26",
+		"typescript" : "~4.6.3",
+		"rimraf"     : "~3.0.2"
 	}
 }

@@ -1,3 +1,4 @@
+import { HeadersDefaults } from 'axios';
 export interface Config {
     readonly endpoint: string;
     readonly token: string;
@@ -60,3 +61,6 @@ export interface ErrorResponse {
     readonly code: number;
     readonly message: string;
 }
+export declare type CentrifugoHeaders = HeadersDefaults & {
+    authorization: string;
+};

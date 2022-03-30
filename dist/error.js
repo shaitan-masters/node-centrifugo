@@ -7,8 +7,16 @@ class CentrifugeError extends Error {
         super(message);
     }
     get data() {
-        const { error } = JSON.parse(this.message);
-        return error;
+        try {
+            const { error } = JSON.parse(this.message);
+            return error;
+        }
+        catch (e) {
+            return {
+                code: -1,
+                message: this.message
+            };
+        }
     }
 }
 exports.CentrifugeError = CentrifugeError;

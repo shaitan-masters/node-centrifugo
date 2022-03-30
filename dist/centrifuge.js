@@ -41,40 +41,72 @@ class Centrifuge {
         return http;
     }
     async request(method, params = {}) {
-        return this.http.post('api', { method, params });
+        return this.http.post('api', {
+            method,
+            params
+        });
     }
     async publish(channel, data) {
-        return this.request(Centrifuge.METHOD.PUBLISH, { channel, data });
+        return this.request(Centrifuge.METHOD.PUBLISH, {
+            channel,
+            data
+        });
     }
     async subscribe(channel, user) {
-        return this.request(Centrifuge.METHOD.SUBSCRIBE, { channel, user });
+        return this.request(Centrifuge.METHOD.SUBSCRIBE, {
+            channel,
+            user
+        });
     }
     async broadcast(channel, data) {
-        return this.request(Centrifuge.METHOD.BROADCAST, { channel, data });
+        return this.request(Centrifuge.METHOD.BROADCAST, {
+            channel,
+            data
+        });
     }
     async presence(channel) {
-        return this.request(Centrifuge.METHOD.PRESENCE, { channel });
+        return this.request(Centrifuge.METHOD.PRESENCE, {
+            channel
+        });
     }
     async presenceStats(channel) {
-        return this.request(Centrifuge.METHOD.PRESENCE_STATS, { channel });
+        return this.request(Centrifuge.METHOD.PRESENCE_STATS, {
+            channel
+        });
     }
     async history(channel, limit = 0) {
-        return this.request(Centrifuge.METHOD.HISTORY, { channel, limit });
+        return this.request(Centrifuge.METHOD.HISTORY, {
+            channel,
+            limit
+        });
     }
     async historyRemove(channel) {
-        return this.request(Centrifuge.METHOD.HISTORY_REMOVE, { channel });
+        return this.request(Centrifuge.METHOD.HISTORY_REMOVE, {
+            channel
+        });
     }
     async channels(channel = '') {
-        return this.request(Centrifuge.METHOD.CHANNELS, { pattern: channel });
+        return this.request(Centrifuge.METHOD.CHANNELS, {
+            pattern: channel
+        });
     }
     async unsubscribe(channel, user) {
-        return this.request(Centrifuge.METHOD.UNSUBSCRIBE, { channel, user });
+        return this.request(Centrifuge.METHOD.UNSUBSCRIBE, {
+            channel,
+            user
+        });
     }
     async disconnect(user) {
-        return this.request(Centrifuge.METHOD.DISCONNECT, { user });
+        return this.request(Centrifuge.METHOD.DISCONNECT, {
+            user
+        });
     }
     async refresh(user, client, expireAt) {
-        return this.request(Centrifuge.METHOD.REFRESH, { user, client, expire_at: expireAt });
+        return this.request(Centrifuge.METHOD.REFRESH, {
+            user,
+            client,
+            expire_at: expireAt
+        });
     }
     async info() {
         return this.request(Centrifuge.METHOD.INFO);
