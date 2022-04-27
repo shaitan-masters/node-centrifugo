@@ -1,7 +1,6 @@
-# Centrifuge v3 API admin wrapper
+# Centrifuge v3 API back-end wrapper
 
-
-This is a node module for interacting with the centrifugo(v3).
+This is a node module for interacting with the centrifugo(v3) through back-end API.
 
 Documentation for centrifugo(v3) is available [here](https://centrifugal.dev).
 
@@ -20,26 +19,26 @@ Documentation for centrifugo(v3) is available [here](https://centrifugal.dev).
 #### Base
 
 ```typescript
-import { Centrifuge, CentrifugeError } from '@shaitan-masters/centrifugo';
-    
-    
-const centrifuge = new Centrifuge({
-    endpoint: 'http://locahost:8000',
-    token: 'adminToken123'
-});
-   
-try {
-    const publish = await centrifuge.publish('channel01', { hello: 'moto' }); 
-        
-    console.log(publish);
-    // { epoch: 'Wds32', offset: 3 }
-} catch (error) {
-    if (error instanceof CentrifugeError) {
-        const errorData = error.data;
+import {Centrifuge, CentrifugeError} from '@shaitan-masters/centrifugo';
 
-        console.log(errorData);
-        // { code: 42, message: 'some error message' };    
-    }
+
+const centrifuge = new Centrifuge({
+	endpoint: 'http://locahost:8000',
+	token   : 'adminToken123'
+});
+
+try {
+	const publish = await centrifuge.publish('channel01', {hello: 'moto'});
+
+	console.log(publish);
+	// { epoch: 'Wds32', offset: 3 }
+} catch (error) {
+	if (error instanceof CentrifugeError) {
+		const errorData = error.data;
+
+		console.log(errorData);
+		// { code: 42, message: 'some error message' };    
+	}
 }
 ```
 
@@ -48,7 +47,7 @@ try {
 ###### publish(channel: string, data: Payload)
 
 ```typescript
-const publish = await centrifuge.publish('channel01', { hello: 'moto' }); 
+const publish = await centrifuge.publish('channel01', {hello: 'moto'});
 
 //  { 
 //      epoch: 'Wds32', 
@@ -59,7 +58,7 @@ const publish = await centrifuge.publish('channel01', { hello: 'moto' });
 ###### broadcast(channel: string, data: Payload)
 
 ```typescript
-const broadcast = await centrifuge.broadcast('channel01', { hello: 'moto' }); 
+const broadcast = await centrifuge.broadcast('channel01', {hello: 'moto'});
 
 //  { 
 //      responses: [
@@ -87,8 +86,8 @@ const presence = await centrifuge.presence('channel01');
 ###### presenceStats(channel: string)
 
 ```typescript
-const presenceStats = await centrifuge.presenceStats('channel01'); 
-    
+const presenceStats = await centrifuge.presenceStats('channel01');
+
 //  { 
 //      num_clients: 4
 //      num_users: 2     
@@ -98,8 +97,8 @@ const presenceStats = await centrifuge.presenceStats('channel01');
 ###### history(channel: string, limit: number = 0)
 
 ```typescript
-const history = await centrifuge.history('channel01'); 
-    
+const history = await centrifuge.history('channel01');
+
 // { 
 //      publications: [
 //          {
@@ -121,16 +120,16 @@ const history = await centrifuge.history('channel01');
 ###### historyRemove(channel: string)
 
 ```typescript
-const presenceStats = await centrifuge.presenceStats('channel01'); 
-    
+const presenceStats = await centrifuge.presenceStats('channel01');
+
 //  {}
 ```
 
 ###### channels(pattern: string = '')
 
 ```typescript
-const channels = await centrifuge.channels(); 
-    
+const channels = await centrifuge.channels();
+
 //  {
 //      channels: {
 //          channel01: {
@@ -143,40 +142,49 @@ const channels = await centrifuge.channels();
 ###### subscribe(channel: string, user: string)
 
 ```typescript
-const subscribe = await centrifuge.subscribe('channel01', '42'); 
-    
+const subscribe = await centrifuge.subscribe('channel01', '42');
+
 //  {}
 ```
 
 ###### unsubscribe(channel: string, user: string)
 
 ```typescript
-const unsubscribe = await centrifuge.unsubscribe('channel01', '42'); 
-    
+const unsubscribe = await centrifuge.unsubscribe('channel01', '42');
+
 //  {}
 ```
 
 ###### disconnect(user: string)
 
 ```typescript
-const disconnect = await centrifuge.disconnect('42'); 
-    
+const disconnect = await centrifuge.disconnect('42');
+
 //  {}
 ```
 
 ###### refresh(user: string, client: string, exprireAt: number)
 
 ```typescript
-const refresh = await centrifuge.refresh('42', '0e35a387-86a0-4ed1-823f-81b6e1d2e55b', 3600); 
-    
+const refresh = await centrifuge.refresh('42', '0e35a387-86a0-4ed1-823f-81b6e1d2e55b', 3600);
+
 //  {}
 ```
 
 ###### info()
 
 ```typescript
-const info = await centrifuge.info(); 
-   
+const info = await centrifuge.info();
+
 //  huge info object
 ```
+
+###### healthCheck()
+
+```typescript
+const health = await centrifuge.healthCheck();
+
+// true/false
+```
+
 

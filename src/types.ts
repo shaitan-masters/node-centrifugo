@@ -87,3 +87,5 @@ export interface ErrorResponse {
 export type CentrifugoHeaders = HeadersDefaults & {
 	authorization: string;
 }
+
+export type CentrifugoMethods = { [key in Uppercase<Method>]: Method };

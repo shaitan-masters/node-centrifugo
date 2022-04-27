@@ -11,14 +11,17 @@ import {
 	HistoryResponse,
 	ChannelsResponse,
 	InfoResponse,
-	CentrifugoHeaders
+	CentrifugoHeaders,
+	CentrifugoMethods
 } from './types';
 
 export class Centrifuge {
 	protected readonly config: Config;
 	protected readonly http: AxiosInstance;
 
-	protected static METHOD: { [key in Uppercase<Method>]: Method } = {
+	private readonly dumpResponseData: boolean;
+
+	protected static METHOD: CentrifugoMethods = {
 		PUBLISH       : 'publish',
 		BROADCAST     : 'broadcast',
 		SUBSCRIBE     : 'subscribe',
@@ -33,8 +36,13 @@ export class Centrifuge {
 		INFO          : 'info'
 	};
 
-	constructor(config: Config) {
+	constructor(config: Config, dumpResponseData: boolean = false) {
 		this.config = config;
+		this.dumpResponseData = dumpResponseData;
+
+		if (!this.config.endpoint) throw new Error('config.endpoint is empty');
+		if (!this.config.token) throw new Error('config.token is empty');
+
 		this.http = this.buildHttp(axios.create());
 	}
 
@@ -45,8 +53,27 @@ export class Centrifuge {
 		} as CentrifugoHeaders;
 
 		http.interceptors.response.use(response => {
+			if (this.dumpResponseData) console.log(response.data);
+
+			if (!response?.data) {
+				throw new CentrifugeError(JSON.stringify({
+					code   : -2,
+					message: 'Empty response'
+				}));
+			}
+
 			if ('error' in response.data) {
-				throw new CentrifugeError(JSON.stringify(response.data));
+				let serialized: string;
+				try {
+					serialized = JSON.stringify(response.data.error);
+				} catch (e) {
+					serialized = JSON.stringify({
+						code   : -3,
+						message: 'Cant serialize error message'
+					});
+				}
+
+				throw new CentrifugeError(serialized);
 			}
 
 			return response.data.result;
@@ -137,5 +164,15 @@ export class Centrifuge {
 
 	public async info(): Promise<InfoResponse> {
 		return this.request(Centrifuge.METHOD.INFO);
+	}
+
+	public async healthCheck(): Promise<boolean> {
+		try {
+			const res = await this.info();
+
+			return !!res.nodes.length;
+		} catch (e) {
+			return false;
+		}
 	}
 }

@@ -9,13 +9,11 @@ export class CentrifugeError extends Error {
 
 	public get data(): ErrorResponse {
 		try {
-			const {error} = JSON.parse(this.message);
-
-			return error;
+			return JSON.parse(this.message);
 		} catch (e) {
 			return {
 				code   : -1,
-				message: this.message
+				message: `Cant parse message: ${this.message}`
 			};
 		}
 	}
