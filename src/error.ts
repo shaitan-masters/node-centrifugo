@@ -5,6 +5,8 @@ export class CentrifugeError extends Error {
 
 	constructor(message: string) {
 		super(message);
+		
+		this.message = message;
 	}
 
 	public get data(): ErrorResponse {
