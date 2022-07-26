@@ -1,7 +1,7 @@
 {
 	"name"           : "@shaitan-masters/centrifugo",
 	"description"    : "Centrifuge v3 back-end API wrapper",
-	"version"        : "0.2.0",
+	"version"        : "0.2.1",
 	"author"         : {
 		"name" : "Alexander Gropynov | CREW Shaitan Masters",
 		"email": "alexander.gropyanov@mojam.co"
